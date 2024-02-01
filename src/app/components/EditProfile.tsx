@@ -4,8 +4,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 enum GenderEnum {
-  female = "Female",
-  male = "Male",
+  female = "female",
+  male = "male",
   other = "other",
 }
 
@@ -18,11 +18,10 @@ interface Form {
   currAddress: string;
   permaAddress: string;
   email: string;
-  date: number;
   gender: GenderEnum;
 }
 
-export default function Page() {
+export default function EditProfile({ onClose }: any) {
   const { register, handleSubmit } = useForm<Form>();
   const context = useUserContext();
   const { user, setUser } = context;
@@ -33,16 +32,13 @@ export default function Page() {
   const onSubmit: SubmitHandler<Form> = (data) => {
     setUser(data);
     console.log("Login::", data);
-    router.push("/profile");
+    onClose((prev: boolean) => !prev);
   };
 
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center gap-6 p-6 bg-neutral-50 dark:bg-neutral-800">
-      <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-lg xl:p-0 dark:bg-neutral-900 dark:border-neutral-700">
+    <div className="h-screen w-full flex flex-col items-center justify-center gap-6 p-6 bg-white backdrop-filter backdrop-blur-lg bg-opacity-10 ">
+      <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-lg xl:p-0 dark:bg-neutral-900 dark:border-neutral-700 rounded-2xl">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 className="text-xl font-bold leading-tight tracking-tight text-neutral-800 md:text-2xl dark:text-white">
-            Create an account
-          </h1>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-4 md:space-y-6"
@@ -53,7 +49,8 @@ export default function Page() {
                   First Name
                 </label>
                 <input
-                  {...register("firstName", { required: true, maxLength: 20 })}
+                  {...register("firstName")}
+                  defaultValue={user.firstName}
                   className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Hardik"
                 />
@@ -63,7 +60,8 @@ export default function Page() {
                   Last Name
                 </label>
                 <input
-                  {...register("lastName", { pattern: /^[A-Za-z]+$/i })}
+                  {...register("lastName")}
+                  defaultValue={user.lastName}
                   className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Sharma"
                 />
@@ -76,6 +74,7 @@ export default function Page() {
               <input
                 type="email"
                 {...register("email")}
+                defaultValue={user.email}
                 className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="name@company.com"
               />
@@ -88,6 +87,7 @@ export default function Page() {
                 <input
                   type="number"
                   {...register("age")}
+                  defaultValue={user.age}
                   className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="18-60"
                 />
@@ -98,6 +98,7 @@ export default function Page() {
                 </label>
                 <select
                   {...register("gender")}
+                  defaultValue={user.gender}
                   className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-max p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option value="female">Female</option>
@@ -113,6 +114,7 @@ export default function Page() {
                 <input
                   type="number"
                   {...register("phoneNumber")}
+                  defaultValue={user.phoneNumber}
                   className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="+91-99XXXXXXXX"
                 />
@@ -124,6 +126,7 @@ export default function Page() {
               </label>
               <input
                 {...register("currAddress")}
+                defaultValue={user.currAddress}
                 className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
@@ -133,13 +136,22 @@ export default function Page() {
               </label>
               <input
                 {...register("permaAddress")}
+                defaultValue={user.permaAddress}
                 className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
-            <input
-              type="submit"
-              className="bg-white text-black p-2 w-full rounded-lg font-bold"
-            />
+            <div className="flex flex-row gap-4">
+              <input
+                type="submit"
+                className="bg-white text-black p-2 w-full rounded-lg font-bold uppercase"
+              />
+              <button
+                className="border-white border-2 text-white p-2 w-full rounded-lg font-bold uppercase"
+                onClick={onClose}
+              >
+                Close
+              </button>
+            </div>
           </form>
         </div>
       </div>

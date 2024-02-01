@@ -6,7 +6,10 @@ interface User {
   lastName: string;
   age: number;
   phoneNumber: number;
-  address: string;
+  currAddress: string;
+  permaAddress: string;
+  email: string;
+  gender: string;
 }
 
 interface UserContextProps {
@@ -21,19 +24,25 @@ const UserContext = createContext<UserContextProps>({
     lastName: "",
     age: 0,
     phoneNumber: 0,
-    address: "",
+    currAddress: "",
+    permaAddress: "",
+    gender: "",
+    email: "",
   },
   setUser: () => {},
 });
 
 export default function AppStore({ children }: any) {
   const [user, setUser] = useState<User>({
-    id: 1,
+    id: 0,
     firstName: "",
     lastName: "",
-    age: 90,
-    phoneNumber: 9090909090,
-    address: "demo",
+    age: 0,
+    phoneNumber: 0,
+    currAddress: "",
+    permaAddress: "",
+    email: "",
+    gender: "",
   });
   return (
     <UserContext.Provider value={{ user, setUser }}>
