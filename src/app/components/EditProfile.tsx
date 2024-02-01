@@ -25,7 +25,6 @@ export default function EditProfile({ onClose }: any) {
   const { register, handleSubmit } = useForm<Form>();
   const context = useUserContext();
   const { user, setUser } = context;
-  const router = useRouter();
 
   console.log("User::", user);
 
