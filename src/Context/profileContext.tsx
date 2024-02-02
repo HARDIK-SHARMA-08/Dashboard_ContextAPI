@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface User {
   id: number;
@@ -17,6 +17,7 @@ interface UserContextProps {
   setUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
+
 const UserContext = createContext<UserContextProps>({
   user: {
     id: 0,
@@ -26,24 +27,22 @@ const UserContext = createContext<UserContextProps>({
     phoneNumber: 0,
     currAddress: "",
     permaAddress: "",
-    gender: "",
     email: "",
+    gender: ""
   },
-  setUser: () => {},
+  setUser: () => { },
 });
 
 export default function AppStore({ children }: any) {
-  const [user, setUser] = useState<User>({
-    id: 0,
-    firstName: "",
-    lastName: "",
-    age: 0,
-    phoneNumber: 0,
-    currAddress: "",
-    permaAddress: "",
-    email: "",
-    gender: "",
+  const [user, setUser] = useState<User>(() => {
+    const storedUser = localStorage.getItem("userData");
+    return storedUser ? JSON.parse(storedUser) : {};
   });
+
+  useEffect(() => {
+    localStorage.setItem("userData", JSON.stringify(user));
+  }, [user]);
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}

@@ -1,5 +1,5 @@
 "use client";
-import { useUserContext } from "@/Context/profileContext";
+import { useStudentContext } from "@/Context/studentContext";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 enum GenderEnum {
@@ -9,7 +9,7 @@ enum GenderEnum {
 }
 
 interface Form {
-  id: number;
+  // id: number;
   firstName: string;
   lastName: string;
   age: number;
@@ -20,15 +20,15 @@ interface Form {
   gender: GenderEnum;
 }
 
-export default function EditProfile({ onClose }: any) {
+export default function CreateStudent({ onClose }: any) {
   const { register, handleSubmit } = useForm<Form>();
-  const context = useUserContext();
-  const { user, setUser } = context;
+  const context = useStudentContext();
+  const { students, setStudent } = context;
 
-  console.log("User::", user);
+  console.log("User::", students);
 
   const onSubmit: SubmitHandler<Form> = (data) => {
-    setUser(data);
+    setStudent((prevStudents: any) => [...prevStudents, data]);
     console.log("Login::", data);
     localStorage.setItem('user', JSON.stringify(data))
     onClose((prev: boolean) => !prev);
@@ -49,7 +49,6 @@ export default function EditProfile({ onClose }: any) {
                 </label>
                 <input
                   {...register("firstName")}
-                  defaultValue={user.firstName}
                   className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Hardik"
                 />
@@ -60,7 +59,6 @@ export default function EditProfile({ onClose }: any) {
                 </label>
                 <input
                   {...register("lastName")}
-                  defaultValue={user.lastName}
                   className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Sharma"
                 />
@@ -73,7 +71,6 @@ export default function EditProfile({ onClose }: any) {
               <input
                 type="email"
                 {...register("email")}
-                defaultValue={user.email}
                 className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="name@company.com"
               />
@@ -86,7 +83,6 @@ export default function EditProfile({ onClose }: any) {
                 <input
                   type="number"
                   {...register("age")}
-                  defaultValue={user.age}
                   className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="18-60"
                 />
@@ -97,7 +93,6 @@ export default function EditProfile({ onClose }: any) {
                 </label>
                 <select
                   {...register("gender")}
-                  defaultValue={user.gender}
                   className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-max p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option value="female">Female</option>
@@ -113,7 +108,7 @@ export default function EditProfile({ onClose }: any) {
                 <input
                   type="number"
                   {...register("phoneNumber")}
-                  defaultValue={user.phoneNumber}
+
                   className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="+91-99XXXXXXXX"
                 />
@@ -125,7 +120,7 @@ export default function EditProfile({ onClose }: any) {
               </label>
               <input
                 {...register("currAddress")}
-                defaultValue={user.currAddress}
+
                 className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
@@ -135,7 +130,7 @@ export default function EditProfile({ onClose }: any) {
               </label>
               <input
                 {...register("permaAddress")}
-                defaultValue={user.permaAddress}
+
                 className="bg-neutral-50 border border-neutral-300 text-neutral-800 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>

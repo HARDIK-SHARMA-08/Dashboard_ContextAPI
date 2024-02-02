@@ -2,7 +2,7 @@
 // import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { AppStore } from "@/Context";
+import { AppStore, StudentStore } from "@/Context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppStore>{children}</AppStore>
+        <StudentStore>
+          <AppStore>
+            {children}
+          </AppStore>
+        </StudentStore>
       </body>
     </html>
   );

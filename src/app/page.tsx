@@ -4,30 +4,33 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      <main className="flex min-h-screen flex-row items-center justify-center p-24 gap-10">
-        <Link
-          href="/signup"
-          className="bg-white text-black text-center font-extrabold p-10 rounded-xl text-6xl uppercase inline-flex items-center gap-6 justify-center"
-        >
-          SignUp
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={100}
-            viewBox="0 0 640 512"
-          >
-            <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
-          </svg>
-        </Link>
+      <main className="flex min-h-screen flex-row items-center justify-center p-24 gap-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-500 from-0%">
+        <div className="text-center pt-28 pb-10 mx-auto max-w-xl lg:max-w-3xl">
 
-        {/* <Link
-          href="/profile"
-          className="bg-white text-black w-1/2 text-center font-extrabold p-10 rounded-xl text-6xl uppercase inline-flex items-center gap-6 justify-center"
-        >
-          Profile
-          <svg xmlns="http://www.w3.org/2000/svg" width={65} viewBox="0 0 448 512">
-            <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
-          </svg>
-        </Link> */}
+          <h1 className="text-4xl font-semibold leading-loose text-white sm:text-6xl px-8">
+            Lorem ipsum{" "}
+          </h1>
+          <p className="mt-6 mx-5 text-lg leading-8 text-gray-400">
+          Lets get you all set up that you can begin your journey towards finishing your goals
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-x-2">
+            <Link
+              href="/signup">
+              <button
+                type="button"
+                className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              >
+                Signup
+              </button>
+            </Link>
+            <button
+              type="button"
+              className="rounded-md border border-white px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+            >
+              Login
+            </button>
+          </div>
+        </div>
       </main>
     </>
   );
